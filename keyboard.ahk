@@ -4,22 +4,40 @@ I_Icon = %A_WorkingDir%/keyboard.png
 IfExist, %I_Icon%
     Menu, Tray, Icon, %I_Icon%
 
+RemapKey(BindKey)
+{
+    if GetKeyState("Shift", "p") And GetKeyState("Ctrl", "p") {
+        Send, ^+{%BindKey%}
+        return
+    }
+    else if GetKeyState("Shift", "p") {
+        Send, +{%BindKey%}
+        return
+    }
+    else if  GetKeyState("Ctrl", "p") {
+        Send, ^{%BindKey%}
+        return
+    }
+    Send, {%BindKey%}
+    return
+}
 
 CapsLock & j:: 
-    Send, {Left}
+    RemapKey("Left")
     return
 
 CapsLock & i::
-    Send,  {Up}
-    return 
+    RemapKey("Up")
+    return
 
 CapsLock & k::
-    Send, {Down}
+    RemapKey("Down")
     return
 
 CapsLock & l::
-    Send, {Right}
-    return 
+    RemapKey("Right")
+    return
+    
 
 SC138:: ; binding for IME HANGUL
     Send, {RAlt}
@@ -35,4 +53,3 @@ SC138:: ; binding for IME HANGUL
 
 CapsLock::
     return
-
