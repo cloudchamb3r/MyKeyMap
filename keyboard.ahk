@@ -6,21 +6,20 @@ IfExist, %I_Icon%
 
 RemapKey(BindKey)
 {
-    if GetKeyState("Shift", "p") And GetKeyState("Ctrl", "p") {
-        Send, ^+{%BindKey%}
-        return
+    Key = {%BindKey%}
+    if GetKeyState("Shift", "p") {
+        Key = +%Key%
     }
-    else if GetKeyState("Shift", "p") {
-        Send, +{%BindKey%}
-        return
+    if  GetKeyState("Ctrl", "p") {
+        Key = ^%Key%
     }
-    else if  GetKeyState("Ctrl", "p") {
-        Send, ^{%BindKey%}
-        return
-    }
-    Send, {%BindKey%}
+    if GetKeyState("Alt", "p") {
+        Key = !%Key%
+    }    
+    Send, %Key%
     return
 }
+
 
 CapsLock & j:: 
     RemapKey("Left")
